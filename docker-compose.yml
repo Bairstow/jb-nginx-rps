@@ -12,7 +12,7 @@ services:
       - jb-home
 
   jb-home:
-    image: jb-home/latest
+    image: jb-home:latest
     container_name: jb-home
     expose:
       - "80"
