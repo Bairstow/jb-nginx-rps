@@ -1,0 +1,8 @@
+---
+all:
+  children:
+    jbhome:
+      hosts:
+        45.77.237.136:
+      vars:
+        ansible_python_interpreter: "/usr/bin/python"

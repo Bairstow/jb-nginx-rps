@@ -1,0 +1,14 @@
+---
+- name: Deploy app stack to server via docker compose
+  hosts: jbhome
+  remote_user: administrator
+  tasks:
+    - name: Clone and update home repository
+      git:
+        repo: 'https://github.com/Bairstow/jb-nginx-rps.git'
+        dest: /home/administrator/git/jb-nginx-rps
+    - name: Docker compose down current stack deployment
+      docker_service:
+        project_src: /home/administrator/git/jb-nginx-rps
+        state: present
+        restarted: true
