@@ -1,23 +1,43 @@
 ---
-version: 2.1
-
-executors:
-  deploy_env:
-    docker:
-      - image: circleci/python:latest
-    working_directory: ~/deploy
-
+version: 2
 jobs:
   ansible_deploy:
-    executor: deploy_env
+    docker:
+    - image: circleci/python:latest
+    working_directory: ~/deploy
     steps:
-      - checkout
-      - run: ssh-keyscan $SSH_SERVER >> ~/.ssh/known_hosts
-      - run: pip install --user ansible
-      - run: ~/.local/bin/ansible-playbook -i ~/deploy/ansible/inventory.yml ~/deploy/ansible/deploy.yml
-
+    - checkout
+    - run:
+        command: ssh-keyscan $SSH_SERVER >> ~/.ssh/known_hosts
+    - run:
+        command: pip install --user ansible
+    - run:
+        command: ~/.local/bin/ansible-playbook -i ~/deploy/ansible/inventory.yml ~/deploy/ansible/deploy.yml
 workflows:
   deploy_stack_update:
     jobs:
-      - ansible_deploy
+    - ansible_deploy
+  version: 2
+
+#version: 2.1
+
+#executors:
+  #deploy_env:
+    #docker:
+      #- image: circleci/python:latest
+    #working_directory: ~/deploy
+
+#jobs:
+  #ansible_deploy:
+    #executor: deploy_env
+    #steps:
+      #- checkout
+      #- run: ssh-keyscan $SSH_SERVER >> ~/.ssh/known_hosts
+      #- run: pip install --user ansible
+      #- run: ~/.local/bin/ansible-playbook -i ~/deploy/ansible/inventory.yml ~/deploy/ansible/deploy.yml
+
+#workflows:
+  #deploy_stack_update:
+    #jobs:
+      #- ansible_deploy
 
