@@ -12,6 +12,7 @@ jobs:
     executor: build_env
     steps:
       - checkout
+      - run: ssh-keyscan $SSH_SERVER >> ~/.ssh/known_hosts
       - run: pip install --user ansible
       - run: pwd
       - run: ~/.local/bin/ansible-playbook -i ~/repo/ansible/inventory.yml ~/repo/ansible/deploy.yml
