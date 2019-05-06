@@ -11,7 +11,7 @@ services:
     depends_on:
       - jb-home
   jb-home:
-    image: jb-home:latest
+    image: 449788418462.dkr.ecr.ap-southeast-2.amazonaws.com/jb-home:latest
     container_name: jb-home
     expose:
       - "80"
