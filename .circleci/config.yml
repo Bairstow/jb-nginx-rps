@@ -2,14 +2,14 @@
 version: 2.1
 
 executors:
-  build_env:
+  deploy_env:
     docker:
       - image: circleci/python:latest
     working_directory: ~/repo
 
 jobs:
   ansible_deploy:
-    executor: build_env
+    executor: deploy_env
     steps:
       - checkout
       - run: ssh-keyscan $SSH_SERVER >> ~/.ssh/known_hosts
