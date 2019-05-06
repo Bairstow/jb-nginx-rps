@@ -1,21 +1,20 @@
 ---
 version: 2.1
 
-jobs:
-  ansible_deploy:
+executors:
+  build_env:
     docker:
       - image: ansible/ansible:1604
+    working_directory: ~/repo
+
+jobs:
+  ansible_deploy:
+    executor: build_env
     steps:
-      - run:
-        name: Install system packages
-        command: pip install --upgrade pip && pip install ansible
       - checkout
-      - run:
-        name: PWD
-        command: pwd
-      - run:
-        name: Execute ansible playbook
-        command: ansible-playbook -i ~/jb-nginx-rps/ansible/inventory.yml ~/jb-nginx-rps/ansible/deploy.yml
+      - run: pip install --upgrade pip && pip install ansible
+      - run: pwd
+      - run: ansible-playbook -i ~/jb-nginx-rps/ansible/inventory.yml ~/jb-nginx-rps/ansible/deploy.yml
 
 workflows:
   deploy_stack_update:
