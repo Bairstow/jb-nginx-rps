@@ -1,11 +1,24 @@
+---
 version: 2.1
-jobs:
-  deploy:
-    docker:
-      - image: debian:stretch
 
+jobs:
+  ansible_deploy:
+    docker:
+      - image: ansible/ansible:1604
     steps:
       - run:
-          name: SSH and deploy via script
-          command: |
-            ssh josh@45.77.237.136 '~/script/deploy.sh'
+        name: Install system packages
+        command: pip install --upgrade pip && pip install ansible
+      - checkout
+      - run:
+        name: PWD
+        command: pwd
+      - run:
+        name: Execute ansible playbook
+        command: ansible-playbook -i ~/jb-nginx-rps/ansible/inventory.yml ~/jb-nginx-rps/ansible/deploy.yml
+
+workflows:
+  deploy_stack_update:
+    jobs:
+      - ansible_deploy
+
