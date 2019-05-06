@@ -12,7 +12,7 @@ jobs:
     executor: build_env
     steps:
       - checkout
-      - run: pip install --upgrade pip && pip install ansible
+      - run: pip install --user ansible
       - run: pwd
       - run: ansible-playbook -i ~/jb-nginx-rps/ansible/inventory.yml ~/jb-nginx-rps/ansible/deploy.yml
 
