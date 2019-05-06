@@ -1,7 +1,7 @@
 ---
 version: 2
 jobs:
-  ansible_deploy:
+  build:
     docker:
     - image: circleci/python:latest
     working_directory: ~/deploy
@@ -14,9 +14,9 @@ jobs:
     - run:
         command: ~/.local/bin/ansible-playbook -i ~/deploy/ansible/inventory.yml ~/deploy/ansible/deploy.yml
 workflows:
-  deploy_stack_update:
+  deploy:
     jobs:
-    - ansible_deploy
+    - build
   version: 2
 
 #version: 2.1
