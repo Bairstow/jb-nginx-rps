@@ -3,11 +3,24 @@
   hosts: jbhome
   remote_user: administrator
   tasks:
-    - name: Clone and update home repository
+    - name: Ensure pip awscli package available
+      pip:
+        name: awscli
+        state: present
+    - name: Get AWS ECR login command
+      command: >
+        ~/.local/bin/aws ecr get-login
+          --no-include-email
+          --region ap-southeast-2
+      register: docker_login_command
+    - name: Execute docker login command
+      command: "{{ docker_login_command.stdout }}"
+      register: login_output
+    - name: Clone and update nginx repository
       git:
         repo: 'https://github.com/Bairstow/jb-nginx-rps.git'
         dest: /home/administrator/git/jb-nginx-rps
-    - name: Docker compose down current stack deployment
+    - name: Restart stack
       docker_service:
         project_src: /home/administrator/git/jb-nginx-rps
         state: present

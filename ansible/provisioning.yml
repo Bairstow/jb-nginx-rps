@@ -1,9 +1,0 @@
----
-- name: Server package provisioning
-  hosts: jbhome
-  remote_user: administrator
-  become: true
-  roles:
-    - role: "nickjj.docker"
-      tags: ["docker"]
-
