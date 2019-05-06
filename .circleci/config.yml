@@ -4,7 +4,7 @@ version: 2.1
 executors:
   build_env:
     docker:
-      - image: ansible/ansible:1604
+      - image: circleci/python:latest
     working_directory: ~/repo
 
 jobs:
