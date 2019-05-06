@@ -14,7 +14,7 @@ jobs:
       - checkout
       - run: pip install --user ansible
       - run: pwd
-      - run: ansible-playbook -i ~/jb-nginx-rps/ansible/inventory.yml ~/jb-nginx-rps/ansible/deploy.yml
+      - run: ~/.local/bin/ansible-playbook -i ~/repo/ansible/inventory.yml ~/repo/ansible/deploy.yml
 
 workflows:
   deploy_stack_update:
