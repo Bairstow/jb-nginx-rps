@@ -1,4 +1,4 @@
-version: '3'
+version: '3.1'
 services:
   jb-nginx-rps:
     image: nginx:alpine
@@ -11,6 +11,7 @@ services:
     depends_on:
       - jb-home
       - bb-name-generator
+      - bbng-ws
   jb-home:
     image: 449788418462.dkr.ecr.ap-southeast-2.amazonaws.com/jb-home:latest
     container_name: jb-home
@@ -21,3 +22,10 @@ services:
     container_name: bb-name-generator
     expose:
       - "80"
+  bbng-ws:
+    image: 449788418462.dkr.ecr.ap-southeast-2.amazonaws.com/bbng-ws:latest
+    container_name: bbng-ws
+    volumes:
+      - /home/administrator/resource/db/bbng.db:/usr/bin/bbng-bed/resources/db/bbng.db
+    ports:
+      - 8200:8200
