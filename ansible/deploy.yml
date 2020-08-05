@@ -28,6 +28,10 @@
       docker_image:
         name: 449788418462.dkr.ecr.ap-southeast-2.amazonaws.com/bb-name-generator:latest
         force: true
+    - name: Pull latest bbng-ws image
+      docker_image:
+        name: 449788418462.dkr.ecr.ap-southeast-2.amazonaws.com/bbng-ws:latest
+        force: true
     - name: Restart stack
       docker_service:
         project_src: /home/administrator/git/jb-nginx-rps
